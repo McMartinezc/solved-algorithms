@@ -17,7 +17,39 @@ Si disparas a todos los zombies, devuelve "Disparaste a todos los X zombies". Si
 */
 
 function zombieShootout(zombies, range, ammo) {
-  return "";
+  //Calcular el tiempo que tardan los zombies en llegar a mi (range = distancia)
+  let tiempo = range / 0.5;
+  let segundos = 0; //Indica el tiempo que ha pasado
+
+
+  while (segundos <= tiempo) {
+
+    // Si disparamos a todos los zombies
+    if (zombies <= 0) {
+      return `Disparaste a todos los ${segundos} zombies.`;
+    }
+
+    // Disparar a un zombie y avanzar el tiempo
+    zombies--;
+    ammo--;
+    segundos++;
+
+    // Nos quedamos sin balas
+    if (ammo <= 0) {
+      return `Disparaste a ${segundos - 1} zombies antes de ser comido: te quedaste sin balas.`;
+    }
+
+    // Avanzar a los zombies restantes
+    range -= 0.5;
+
+    // Si algún zombie llega a 0 metros
+    if (range <= 0) {
+      return `Disparaste a ${segundos} zombies antes de ser comido: abrumado.`;
+    }
+  }
+
+  // Los zombies te alcanzaron antes de que pudieras dispararles a todos
+  return `Disparaste a ${tiempo} zombies antes de ser comido: abrumado.`;
 }
 
 // El console.log de la izquierda debe dar lo mismo que el console.log de la derecha, para cada llamada a la función

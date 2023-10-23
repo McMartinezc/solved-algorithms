@@ -18,7 +18,7 @@ function bingo(numbers) {
   //Convertimos el array de numeros a las letras que le corresponda
   const numbersLetters = numbers.map(num=> alphabet[num-1]); //num- porque empieza por A-->1
   console.log(numbersLetters)
-  
+
   //Filtramos las letras de targerWord que esten presentes en la array proporcionada por el usuario
   const bingoLetters = targetWord.filter(letter => numbersLetters.includes(letter));
 
@@ -29,4 +29,4 @@ function bingo(numbers) {
 console.log(bingo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])); // "LOSE"
 console.log(bingo([21, 13, 2, 7, 5, 14, 7, 15, 9, 10])); // "WIN"
 console.log(bingo([21, 13, 1, 7, 5, 14, 7, 15, 9, 10])); // "WIN"
-console.log(bingo([21, 13, 2, 7, 5, 14, 7, 15, 9, 10,3])); // "WIN"
+console.log(bingo([21, 13, 2, 7, 5, 14, 7, 15, 9, 10,3,2])); // "WIN"
