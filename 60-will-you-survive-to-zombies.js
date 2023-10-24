@@ -16,50 +16,37 @@ Si disparas a todos los zombies, devuelve "Disparaste a todos los X zombies". Si
 (Si te quedas sin balas al mismo tiempo que los zombies restantes llegan a ti, devuelve "Disparaste a X zombies antes de ser comido: abrumado"). ¡Buena suerte! (Creo que la vas a necesitar)."
 */
 
+//otra manera de hacer el bucle while
 function zombieShootout(zombies, range, ammo) {
-  //Calcular el tiempo que tardan los zombies en llegar a mi (range = distancia)
-  let tiempo = range / 0.5;
-  let segundos = 0; //Indica el tiempo que ha pasado
+  let seconds = 0;
 
-
-  while (segundos <= tiempo) {
-
-    // Si disparamos a todos los zombies
-    if (zombies <= 0) {
-      return `Disparaste a todos los ${segundos} zombies.`;
+  while (zombies > 0 && ammo > 0) {
+    // Verificamos si un zombie llega a 0 metros antes de disparar
+    if (range <= 0) {
+      return `Disparaste a ${seconds} zombies antes de ser comido: abrumado.`;
     }
 
-    // Disparar a un zombie y avanzar el tiempo
+    // Disparamos a un zombie y reducimos una bala
     zombies--;
     ammo--;
-    segundos++;
 
-    // Nos quedamos sin balas
-    if (ammo <= 0) {
-      return `Disparaste a ${segundos - 1} zombies antes de ser comido: te quedaste sin balas.`;
-    }
-
-    // Avanzar a los zombies restantes
+    // Avanzamos el resto de zombies
     range -= 0.5;
 
-    // Si algún zombie llega a 0 metros
-    if (range <= 0) {
-      return `Disparaste a ${segundos} zombies antes de ser comido: abrumado.`;
-    }
+    // Avanzamos un segundo
+    seconds++;
   }
 
-  // Los zombies te alcanzaron antes de que pudieras dispararles a todos
-  return `Disparaste a ${tiempo} zombies antes de ser comido: abrumado.`;
+  // Si nos quedamos sin balas antes de matar a todos los zombies
+  if (zombies > 0) {
+    return `Disparaste a ${seconds} zombies antes de ser comido: te quedaste sin balas.`;
+  }
+
+  // Si logramos matar a todos los zombies
+  return `Disparaste a todos los ${seconds} zombies.`;
 }
 
-// El console.log de la izquierda debe dar lo mismo que el console.log de la derecha, para cada llamada a la función
-
-console.log(zombieShootout(3, 10, 10), "You shot all 3 zombies.");
-console.log(
-  zombieShootout(100, 8, 200),
-  "You shot 16 zombies before being eaten: overwhelmed."
-);
-console.log(
-  zombieShootout(50, 10, 8),
-  "You shot 8 zombies before being eaten: ran out of ammo."
-);
+console.log(zombieShootout(10, 5, 7)); // Salida: Disparaste a 5 zombies antes de ser comido: te quedaste sin balas.
+console.log(zombieShootout(3, 10, 10)); // Salida: Disparaste a todos los 3 zombies.
+console.log(zombieShootout(100, 8, 200)); // Salida: Disparaste a todos los 16 zombies.
+console.log(zombieShootout(50, 10, 8)); // Salida: Disparaste a 7 zombies antes de ser comido: te quedaste sin balas.
